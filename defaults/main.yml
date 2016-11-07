@@ -1,0 +1,7 @@
+---
+rmilter_clamav_enable: false
+rmilter_spamd_enable: false
+rmilter_limits_enable: false
+rmilter_redis_enable: false
+rmilter_greylisting_enable: false
+rmilter_dkim_enable: false

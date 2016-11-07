@@ -1,0 +1,7 @@
+---
+rmilter_configuration_file_path: /usr/local/etc/rmilter.conf
+rmilter_configuration_dir_path: /usr/local/etc/rmilter.d
+rmilter_package_name: rmilter
+rmilter_service_name: rmilter
+
+rmilter_bind_socket: unix:/var/run/rmilter/rmilter.sock

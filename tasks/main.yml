@@ -1,0 +1,46 @@
+---
+- name: Include OS-specific variables
+  include_vars: '{{ ansible_os_family }}.yml'
+
+
+- name: Install the rmilter package
+  package:
+    name: '{{ rmilter_package_name }}'
+
+
+- name: Include OS-specific actions
+  include: '{{ ansible_os_family }}.yml'
+
+
+- name: Ensure configuration subdirectory exists
+  file:
+    path: '{{ rmilter_configuration_dir_path }}'
+    state: directory
+
+
+- name: Create main rmilter.conf configuration file
+  template:
+    src: 'rmilter.conf'
+    dest: '{{ rmilter_configuration_file_path }}'
+  notify: reload rmilter
+
+
+- name: Create specifics rmilter configuration files
+  template:
+    src: '{{ item }}.conf'
+    dest: '{{ rmilter_configuration_dir_path }}/{{ item }}.conf'
+  with_items:
+    - rmilter-clamav
+    - rmilter-dkim
+    - rmilter-greylisting
+    - rmilter-limits
+    - rmilter-redis
+    - rmilter-spamd
+  notify: reload rmilter
+
+
+- name: Start rmilter
+  service:
+    name: '{{ rmilter_service_name }}'
+    state: started
+    enabled: yes

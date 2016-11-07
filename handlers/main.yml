@@ -1,0 +1,11 @@
+---
+- name: reload rmilter
+  service:
+    name: '{{ rmilter_service_name }}'
+    state: reloaded
+
+
+- name: restart rmilter
+  service:
+    name: '{{ rmilter_service_name }}'
+    state: restarted
